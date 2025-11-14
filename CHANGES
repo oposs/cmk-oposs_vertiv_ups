@@ -1,0 +1,193 @@
+OPOSS Vertiv/Liebert UPS Monitoring Plugin - Release Notes
+============================================================
+
+Version 0.0.8 - 2024-11-13
+--------------------------
+
+CRITICAL FIX: Voltage Thresholds for 230V Systems
+
+This release fixes false voltage alarms on 230V (European) systems.
+
+Fixed:
+• Removed incorrect 120V voltage thresholds that caused CRIT alarms on 230V systems
+• Voltage thresholds now disabled by default - must be configured per deployment
+• Updated ruleset defaults to 230V values (±10%/±15% tolerance)
+
+Changed:
+• Comprehensive help text added for voltage configuration (both 120V and 230V)
+• Improved documentation explaining regional voltage differences
+
+Configuration Required:
+If you need voltage monitoring, configure thresholds via CheckMK rules:
+• 230V systems: Upper 253V/265V, Lower 207V/195V
+• 120V systems: Upper 132V/138V, Lower 108V/102V
+
+
+Version 0.0.7 - 2024-11-13
+--------------------------
+
+CRITICAL FIX: System Status Detection
+
+This release fixes "System status: unknown CRIT" errors on newer Vertiv models.
+
+Fixed:
+• System status now correctly recognizes string values from Vertiv GXT5
+• Added support for "Normal Operation", "On Battery", "On Bypass" string values
+• Maintains backward compatibility with older Liebert models using numeric codes
+
+Changed:
+• Improved system status detection with smarter fallback logic
+• ECO mode (bypass) now properly treated as OK state, not warning
+• Enhanced status messages: shows "bypass (ECO mode)" for better clarity
+
+
+Version 0.0.6 - 2024-11-13
+--------------------------
+
+CRITICAL BUG FIXES + MAJOR CODE REFACTOR
+
+This release fixes critical data accuracy bugs and significantly improves code quality.
+
+Critical Fixes:
+• Fallback logic now correctly handles zero values
+  - Bug: "0" was treated as empty, incorrectly triggering RFC1628 fallback
+  - Impact: Battery current, input current now report correctly
+
+• Prevented silent data loss when OID has no mapper/converter
+  - Added safety check to store raw values if processing undefined
+
+• Fixed incorrect converter usage for RFC1628 output current
+  - Now uses correct generic converter (deciunits_to_units)
+
+• Added missing ruleset registration exports
+  - Rulesets now properly discovered by CheckMK
+
+Code Quality Improvements:
+• Eliminated ~145 lines of repetitive code through DRY refactoring
+• Created helper functions: yield_informational_metric(), check_alarms()
+• Battery check: 240→201 lines (-16%)
+• Power check: 350→287 lines (-18%)
+• Significantly improved maintainability and readability
+
+
+Version 0.0.5 - 2024-11-13
+--------------------------
+
+NEW FEATURES: ECO Mode + Input Statistics
+
+This release adds 7 new monitored OIDs for enhanced power monitoring.
+
+Added:
+• ECO mode monitoring (2 OIDs)
+  - Automatic ECO mode detection when UPS is in bypass
+  - Proper reporting of energy-saving operation
+
+• Output source tracking (2 OIDs)
+  - Liebert and RFC1628 output source detection
+
+• Input power statistics (3 OIDs)
+  - Input current L1
+  - Max/min input voltage L1-N
+
+• Battery maintenance tracking
+  - Last battery replacement date
+
+New Metrics & Graphs:
+• input_current, input_voltage_max, input_voltage_min
+• "Input Voltage Statistics" graph (current/min/max)
+• "Input Current" graph
+
+Total: 52+ SNMP OIDs now monitored
+
+
+Version 0.0.4 - 2024-11-13
+--------------------------
+
+CRITICAL FIX: Unit Conversion
+
+This release fixes a critical bug causing all metric values to be off by 10x.
+
+Fixed:
+• Corrected unit conversion for all Liebert enterprise OIDs
+  - Bug: Was dividing decimal values by 10 again (Liebert already returns decimals)
+  - Input voltage: 22.91V → 231.3V ✓
+  - Output frequency: 4.99Hz → 49.9Hz ✓
+  - Battery voltage: 5.4V → 54V ✓
+  - Battery temperature: 2.76°C → 26.4°C ✓
+
+Changed:
+• Updated 8 converter functions to use to_float() for Liebert OIDs
+• Maintained proper deci-unit converters for RFC1628 fallbacks
+• Added comments explaining Liebert vs RFC1628 unit differences
+
+Upgrade Impact:
+• Metrics will immediately show correct values
+• Existing graphs will automatically adjust to proper scales
+• No configuration changes required
+
+
+Version 0.0.3 - 2024-11-13
+--------------------------
+
+Bug Fixes: Render Functions & Graph Units
+
+Fixed:
+• render.temperature error (CheckMK 2.3.x compatibility)
+  - Replaced with custom lambda function
+
+• render.frequency error (CheckMK 2.3.x compatibility)
+  - Replaced with custom lambda function
+
+• Graph unit mixing error
+  - Cannot mix VA and W in same graph
+  - Split into separate graphs: output_power (W) and output_apparent_power (VA)
+
+Changed:
+• All Python files now validate successfully
+• Package size: 9.3K
+
+
+Version 0.0.2 - 2024-11-13
+--------------------------
+
+Initial Public Release
+
+This is the first public release of the OPOSS Vertiv/Liebert UPS monitoring plugin.
+
+Features:
+• Comprehensive SNMP monitoring for Vertiv/Liebert UPS devices
+• Dual protocol support: Liebert enterprise MIB + RFC1628 fallback
+• 40+ SNMP OIDs monitored
+• 9 alarm conditions tracked
+
+Three Monitoring Services:
+1. Battery: charge, temperature, runtime, voltage, current
+2. Power: input/output voltage, frequency, load, power metrics
+3. Environment: ambient temperature
+
+Highlights:
+• Smart automatic fallback from Liebert to RFC1628 OIDs
+• Comprehensive graphing and perfometers
+• Web UI rulesets for easy threshold configuration
+• Out-of-the-box functionality with sensible defaults
+• Multi-voltage support (120V/230V systems)
+
+Technical:
+• Metadata-driven OID management architecture
+• CheckMK 2.3.0p1+ compatible
+• Tested on Vertiv GXT5-1500IRT2UXL
+
+Author: Manuel Oetiker <manuel@oetiker.ch>
+License: GNU General Public License v2
+
+
+Installation
+------------
+
+1. Download the MKP package from GitHub releases
+2. In CheckMK: Setup → Extension packages
+3. Click "Upload package" and select the .mkp file
+4. Click "Install" to activate
+
+Documentation: https://github.com/oposs/cmk-oposs_vertiv_ups
+Support: https://github.com/oposs/cmk-oposs_vertiv_ups/issues

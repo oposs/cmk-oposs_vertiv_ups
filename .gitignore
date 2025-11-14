@@ -1,0 +1,12 @@
+.claude
+*~
+*.swp
+*.bak
+*.tmp
+*.log
+*.DS_Store
+*.idea
+*.env
+__pycache__
+*.mkp
+*.tar.gz
