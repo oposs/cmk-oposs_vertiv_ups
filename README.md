@@ -5,18 +5,18 @@
 
 Comprehensive SNMP monitoring plugin for Vertiv/Liebert UPS devices in CheckMK 2.3.x.
 
-## Features
+## ✨ Features
 
-- **52+ SNMP OIDs monitored** across battery, power, and environmental metrics
-- **Dual Protocol Support**: RFC1628 standard UPS MIB and Liebert enterprise MIBs
-- **Smart Fallback**: Automatically falls back from Liebert OIDs to RFC1628 when needed
-- **ECO Mode Detection**: Recognizes and properly reports ECO/bypass mode as normal operation
-- **Rich Visualization**: Comprehensive graphs and perfometers
-- **Web UI Configuration**: Easy threshold customization via rulesets
-- **Out-of-the-Box**: Works immediately with sensible defaults
-- **Multi-Voltage Support**: Handles both 120V (US) and 230V (EU) systems
+- 📊 **52+ SNMP OIDs monitored** across battery, power, and environmental metrics
+- 🔌 **Dual Protocol Support**: RFC1628 standard UPS MIB and Liebert enterprise MIBs
+- ⚡ **Smart Fallback**: Automatically falls back from Liebert OIDs to RFC1628 when needed
+- 🌿 **ECO Mode Detection**: Recognizes and properly reports ECO/bypass mode as normal operation
+- 📈 **Rich Visualization**: Comprehensive graphs and perfometers
+- ⚙️ **Easy Configuration**: Web UI rulesets for threshold customization
+- 🚀 **Out-of-the-Box**: Works immediately with sensible defaults
+- 🌍 **Multi-Voltage Support**: Handles both 120V (US) and 230V (EU) systems
 
-## Installation
+## 📦 Installation
 
 1. Download the latest MKP package from [Releases](https://github.com/oposs/cmk-oposs_vertiv_ups/releases)
 2. In CheckMK: **Setup → Extension packages**
@@ -38,28 +38,28 @@ snmpwalk -v2c -c public your-ups-hostname .1.3.6.1.4.1.476
 
 Including: GXT5 series, Liebert GXT series, Liebert PSI series, and other Liebert-GP compatible devices.
 
-## Monitored Services
+## 📊 Monitored Services
 
-### Battery Service
+### 🔋 Battery Service
 - Charge percentage, temperature, runtime, voltage, current
 - Last battery replacement date
 - Alarms: battery low, over-temperature, discharging, replace battery
 - **Defaults:** Charge WARN 20%/CRIT 10%, Temp WARN 30°C/CRIT 35°C, Runtime WARN 10min/CRIT 5min
 
-### Power Service
+### ⚡ Power Service
 - System status, ECO mode, output load, voltage, current, power, frequency
 - Input voltage/current/frequency/power factor, voltage statistics (min/max)
 - Alarms: input problem, overload, bypass unavailable, output off, inverter failure
 - **Defaults:** Load WARN 80%/CRIT 90%, Frequency WARN ±2Hz/CRIT ±3Hz (50Hz nominal)
 - **Voltage:** Disabled by default (configure per region)
 
-### Environment Service
+### 🌡️ Environment Service
 - Ambient/inlet air temperature
 - **Defaults:** WARN 35°C, CRIT 40°C
 
-## Configuration
+## ⚙️ Configuration
 
-### Voltage Thresholds (Regional)
+### 🌍 Voltage Thresholds (Regional)
 
 **230V Systems (Europe/Asia):**
 - Upper: 253V (warn), 265V (crit)
@@ -76,7 +76,7 @@ Including: GXT5 series, Liebert GXT series, Liebert PSI series, and other Lieber
 
 **Configure via:** Setup → Services → Service monitoring rules → Search "Vertiv UPS"
 
-## Troubleshooting
+## 🔍 Troubleshooting
 
 **Services not appearing?**
 1. Test: `snmpwalk -v2c -c public UPS_IP .1.3.6.1.4.1.476`
@@ -89,7 +89,7 @@ Including: GXT5 series, Liebert GXT series, Liebert PSI series, and other Lieber
 
 **Voltage alarms (230V)?** → Update to v0.0.8+ (voltage thresholds disabled by default)
 
-## Architecture
+## 🏗️ Architecture
 
 **Metadata-Driven OID Management:** All OIDs in structured table with Liebert primary + RFC1628 fallback
 **Smart Unit Handling:** Liebert OIDs return decimals, RFC1628 returns deci-units
@@ -103,7 +103,7 @@ local/lib/python3/cmk_addons/plugins/oposs_vertiv_ups/
 └── rulesets/         # Web UI configuration
 ```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions welcome via [GitHub Issues](https://github.com/oposs/cmk-oposs_vertiv_ups/issues):
 - Bug reports
@@ -112,13 +112,9 @@ Contributions welcome via [GitHub Issues](https://github.com/oposs/cmk-oposs_ver
 - Documentation improvements
 - Device compatibility reports
 
-## References
+## 📚 References
 
 - [CheckMK Documentation](https://docs.checkmk.com/)
 - [CheckMK Plugin Development](https://docs.checkmk.com/latest/en/devel_intro.html)
 - [RFC1628 UPS MIB](https://www.rfc-editor.org/rfc/rfc1628)
 - [Vertiv Support](https://www.vertiv.com/en-us/support/)
-
----
-
-**Made with ❤️ by OETIKER+PARTNER AG**
