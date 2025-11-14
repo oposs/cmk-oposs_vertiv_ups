@@ -13,7 +13,7 @@ on:
           - major    # Increment major (X.0.0)
 
 env:
-  PROJECT_NAME: cmk-oposs_smart_error
+  PROJECT_NAME: cmk-oposs_vertiv_ups
 
 permissions:
   contents: write
@@ -197,18 +197,28 @@ jobs:
 
           VERSION="${{ steps.generate_version.outputs.version }}"
 
-          # Commit CHANGES.md update
+          # Commit CHANGES.md update if there are changes
           git add CHANGES.md
-          git commit -m "Update CHANGES.md for release ${VERSION}"
-          echo "::notice title=Commit Created::Created commit with CHANGES.md updates"
+          if git diff --cached --quiet; then
+            echo "::notice title=No Changes::No changes to CHANGES.md, skipping commit"
+          else
+            git commit -m "Update CHANGES.md for release ${VERSION}"
+            echo "::notice title=Commit Created::Created commit with CHANGES.md updates"
+          fi
 
           # Create and push tag
           git tag -a ${VERSION} -m "Release ${VERSION}"
           echo "::notice title=Tag Created::Created tag ${VERSION}"
 
-          git push origin main
-          git push origin ${VERSION}
-          echo "::notice title=Changes Pushed::Pushed changes and tag to repository"
+          # Push changes (if any) and tag
+          if git diff origin/main --quiet; then
+            echo "::notice title=No Changes to Push::No commits to push, only pushing tag"
+            git push origin ${VERSION}
+          else
+            git push origin main
+            git push origin ${VERSION}
+            echo "::notice title=Changes Pushed::Pushed changes and tag to repository"
+          fi
           echo "::endgroup::"
 
   build:
