@@ -197,28 +197,18 @@ jobs:
 
           VERSION="${{ steps.generate_version.outputs.version }}"
 
-          # Commit CHANGES.md update if there are changes
+          # Commit CHANGES.md update
           git add CHANGES.md
-          if git diff --cached --quiet; then
-            echo "::notice title=No Changes::No changes to CHANGES.md, skipping commit"
-          else
-            git commit -m "Update CHANGES.md for release ${VERSION}"
-            echo "::notice title=Commit Created::Created commit with CHANGES.md updates"
-          fi
+          git commit -m "Update CHANGES.md for release ${VERSION}"
+          echo "::notice title=Commit Created::Created commit with CHANGES.md updates"
 
           # Create and push tag
           git tag -a ${VERSION} -m "Release ${VERSION}"
           echo "::notice title=Tag Created::Created tag ${VERSION}"
 
-          # Push changes (if any) and tag
-          if git diff origin/main --quiet; then
-            echo "::notice title=No Changes to Push::No commits to push, only pushing tag"
-            git push origin ${VERSION}
-          else
-            git push origin main
-            git push origin ${VERSION}
-            echo "::notice title=Changes Pushed::Pushed changes and tag to repository"
-          fi
+          git push origin main
+          git push origin ${VERSION}
+          echo "::notice title=Changes Pushed::Pushed changes and tag to repository"
           echo "::endgroup::"
 
   build:
