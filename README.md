@@ -1,11 +1,11 @@
-# OPOSS Vertiv/Liebert UPS Monitoring Plugin for CheckMK
+# OPOSS Vertiv/Liebert UPS Monitoring Plugin for Checkmk
 
 [![License](https://img.shields.io/badge/License-GPLv2-blue.svg)](LICENSE)
-[![CheckMK](https://img.shields.io/badge/CheckMK-2.3.0+-green.svg)](https://checkmk.com/)
+[![Checkmk](https://img.shields.io/badge/Checkmk-2.3.0+-green.svg)](https://checkmk.com/)
 
-Comprehensive SNMP monitoring plugin for Vertiv/Liebert UPS devices in CheckMK 2.3.x.
+Comprehensive SNMP monitoring plugin for Vertiv/Liebert UPS devices in Checkmk 2.3.x.
 
-![CheckMK Services Overview](https://private-user-images.githubusercontent.com/631883/514492454-32a55a10-6ea6-4482-a335-687535bb712f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjMxMzUyODEsIm5iZiI6MTc2MzEzNDk4MSwicGF0aCI6Ii82MzE4ODMvNTE0NDkyNDU0LTMyYTU1YTEwLTZlYTYtNDQ4Mi1hMzM1LTY4NzUzNWJiNzEyZi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTE0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTExNFQxNTQzMDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jYTdkOTA3OTJlNzAwODcwY2RiZjFiNTk3ODM4MDdkYWRjNWVmZmEyZDJlY2YwZTkwOTZmNTIwMjE1ZTNiYTFmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AGPKIBY4g2ZuhmUB9QCbft9lPy45J7tvUX_gXdDo1YY)
+![Checkmk Services Overview](https://private-user-images.githubusercontent.com/631883/514492454-32a55a10-6ea6-4482-a335-687535bb712f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjMxMzUyODEsIm5iZiI6MTc2MzEzNDk4MSwicGF0aCI6Ii82MzE4ODMvNTE0NDkyNDU0LTMyYTU1YTEwLTZlYTYtNDQ4Mi1hMzM1LTY4NzUzNWJiNzEyZi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTE0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTExNFQxNTQzMDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jYTdkOTA3OTJlNzAwODcwY2RiZjFiNTk3ODM4MDdkYWRjNWVmZmEyZDJlY2YwZTkwOTZmNTIwMjE1ZTNiYTFmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AGPKIBY4g2ZuhmUB9QCbft9lPy45J7tvUX_gXdDo1YY)
 
 ## ✨ Features
 
@@ -21,7 +21,7 @@ Comprehensive SNMP monitoring plugin for Vertiv/Liebert UPS devices in CheckMK 2
 ## 📦 Installation
 
 1. Download the latest MKP package from [Releases](https://github.com/oposs/cmk-oposs_vertiv_ups/releases)
-2. In CheckMK: **Setup → Extension packages**
+2. In Checkmk: **Setup → Extension packages**
 3. Click **Upload package** and select the `.mkp` file
 4. Click **Install**
 
@@ -82,7 +82,7 @@ Including: GXT5 series, Liebert GXT series, Liebert PSI series, and other Lieber
 
 **Services not appearing?**
 1. Test: `snmpwalk -v2c -c public UPS_IP .1.3.6.1.4.1.476`
-2. Check CheckMK SNMP settings
+2. Check Checkmk SNMP settings
 3. Run service discovery: Setup → Hosts → Services → Fix all
 
 **Wrong values (÷10)?** → Update to v0.0.4+
@@ -116,7 +116,7 @@ Contributions welcome via [GitHub Issues](https://github.com/oposs/cmk-oposs_ver
 
 ## 📚 References
 
-- [CheckMK Documentation](https://docs.checkmk.com/)
-- [CheckMK Plugin Development](https://docs.checkmk.com/latest/en/devel_intro.html)
+- [Checkmk Documentation](https://docs.checkmk.com/)
+- [Checkmk Plugin Development](https://docs.checkmk.com/latest/en/devel_intro.html)
 - [RFC1628 UPS MIB](https://www.rfc-editor.org/rfc/rfc1628)
 - [Vertiv Support](https://www.vertiv.com/en-us/support/)
