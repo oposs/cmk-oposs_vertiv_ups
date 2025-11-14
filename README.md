@@ -5,6 +5,8 @@
 
 Comprehensive SNMP monitoring plugin for Vertiv/Liebert UPS devices in CheckMK 2.3.x.
 
+![CheckMK Services Overview](image.png)
+
 ## ✨ Features
 
 - 📊 **52+ SNMP OIDs monitored** across battery, power, and environmental metrics
